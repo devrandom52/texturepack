@@ -1,0 +1,23 @@
+{
+  "name": "texturepacker",
+  "version": "0.1.0",
+  "description": "Packager for single images to atlas texture",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "texturepacker": "cli.js"
+  },
+  "keywords": [
+    "texture",
+    "packer",
+    "images"
+  ],
+  "author": "devrandom52 <dev.random52@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "maxrects-packer": "^2.7.2",
+    "sharp": "^0.28.3"
+  }
+}
