@@ -7,8 +7,8 @@ const writeFile = promisify(fs.writeFile);
 const binPack = require('./bin-pack');
 
 
-const writeImage = async (width, height, blocks, config) => {
-  const { folder, fileName } = config;
+const computeMainImage = async (width, height, blocks, config) => {
+  const { folder } = config;
   const list = await Promise.all(blocks.map(async block => {
     let input = path.resolve(process.cwd(), folder, block.name);
     if (block.atlas) {
@@ -54,13 +54,12 @@ const writeImage = async (width, height, blocks, config) => {
       config.logger.log(`Processed: ${Math.round(100 * (images += pack.length) / list.length)}%`);
     }
   }
-  config.logger.log('Writing main image...');
-  return sharp(buff).toFile(`${fileName}.png`);
+  return sharp(buff).toBuffer();
 }
 
 const packageJson = require('../package.json');
 
-const writeJson = (width, height, blocks, config) => {
+const computeAtlasJson = (width, height, blocks, config) => {
   const { fileName, prettify } = config;
   const data = {
     meta: {
@@ -105,13 +104,14 @@ const writeJson = (width, height, blocks, config) => {
   }, {});
   data.frames = spriteData;
   const content = prettify ? JSON.stringify(data, null, 2) : JSON.stringify(data);
-  return writeFile(`${fileName}.json`, content);
+  return content;
 }
 
 const ATLAS_REGEX = /^[^\.]+[^\.\d](\d+)x(\d+)\.[^\.]+$/;
+const IMAGES_REGEX = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
 const loadImageBlocks = async (files, config) => {
   const { folder } = config;
-  const baseBlocks = await Promise.all(files.map(async file => {
+  const baseBlocks = await Promise.all(files.filter(file => IMAGES_REGEX.test(file)).map(async file => {
     const { width, height } = await sharp(path.resolve(process.cwd(), folder, file)).metadata();
     const block = { width, height, name: file };
     if (ATLAS_REGEX.test(file)) {
@@ -156,7 +156,8 @@ const DEFAULT_CONFIG = {
   square: true
 }
 const fakeLogger = {
-  log: () => 0
+  log: () => 0,
+  writeFiles: true
 }
 
 const pack = async (config) => {
@@ -166,6 +167,11 @@ const pack = async (config) => {
   config = Object.assign(DEFAULT_CONFIG, 
     Object.entries(config).reduce((res, [key, value]) => value !== undefined ? { ...res, [key]: value } : res, {}),
     { logger: config.log ? console: fakeLogger });
+  if (!config.output) {
+    config.output = process.cwd();
+  } else {
+    config.output = path.resolve(process.cwd(), config.output);
+  }
   const { folder, spacing, logger, maxWidth, maxHeight, smart, pot, square } = config;
   const imagesFolder = path.resolve(process.cwd(), folder);
   logger.log('Loading images...');
@@ -178,13 +184,27 @@ const pack = async (config) => {
   logger.log('Packing rectangles...');
   const binPackOptions = { padding: spacing, maxWidth, maxHeight, smart, pot, square };
   const bin = binPack(blocks, binPackOptions);
-  logger.log('Writing results...');
+  logger.log('Processing output...');
   // Write image and json file
-  await Promise.all([
-    writeImage(bin.width, bin.height, bin.rects, config),
-    writeJson(bin.width, bin.height, bin.rects, config)
+  const [imageBuffer, atlasJson] = await Promise.all([
+    computeMainImage(bin.width, bin.height, bin.rects, config),
+    computeAtlasJson(bin.width, bin.height, bin.rects, config)
   ]);
-  logger.log('Packed');
+  const { writeFiles, output, fileName } = config;
+  if (writeFiles) {
+    logger.log('Writing main image...');
+    await Promise.all([
+      writeFile(path.resolve(output, `${fileName}.png`), imageBuffer),
+      writeFile(path.resolve(output, `${fileName}.json`), atlasJson)
+    ]);
+    logger.log('Packed');
+  } else {
+    logger.log('Packed');
+    return {
+      image: imageBuffer,
+      atlas: atlasJson
+    }
+  }
 }
 
 module.exports = pack;

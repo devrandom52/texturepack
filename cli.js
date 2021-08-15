@@ -36,7 +36,7 @@ const parsedOptions = validOptions.reduce((res, optString) => {
   return res;
 }, {});
 
-texturepacker({ ...parsedOptions, log: parsedOptions.log === false ? false : true, folder }).catch(err => {
+texturepacker({ ...parsedOptions, log: parsedOptions.log === false ? false : true, folder, writeFiles: true }).catch(err => {
   if (Array.isArray(err)) {
     err.forEach(err => console.error(err.stack || err.message));
   } else {
