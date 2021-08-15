@@ -37,7 +37,7 @@ const parsedOptions = validOptions.reduce((res, optString) => {
 }, {});
 
 texturepacker({ ...parsedOptions, log: parsedOptions.log === false ? false : true, folder }).catch(err => {
-  if (Array.isArray(err)) {ì
+  if (Array.isArray(err)) {
     err.forEach(err => console.error(err.stack || err.message));
   } else {
     console.error(`An error has occurred.`);

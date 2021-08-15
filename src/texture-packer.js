@@ -144,16 +144,29 @@ const loadImageBlocks = async (files, config) => {
   return blocks;
 }
 
-const DEFAULT_CONFIG = { folder: 'data', fileName: 'spritesheet', prettify: false, spacing: 1, log: false };
+const DEFAULT_CONFIG = { 
+  fileName: 'spritesheet', 
+  prettify: false, 
+  spacing: 1, 
+  log: false,
+  maxWidth: 1024, 
+  maxHeight: 1024,
+  smart: true,
+  pot: true,
+  square: true
+}
 const fakeLogger = {
   log: () => 0
 }
 
 const pack = async (config) => {
+  if (!config.folder) {
+    throw new Error('Target folder must be specified');
+  }
   config = Object.assign(DEFAULT_CONFIG, 
     Object.entries(config).reduce((res, [key, value]) => value !== undefined ? { ...res, [key]: value } : res, {}),
     { logger: config.log ? console: fakeLogger });
-  const { folder, spacing, logger } = config;
+  const { folder, spacing, logger, maxWidth, maxHeight, smart, pot, square } = config;
   const imagesFolder = path.resolve(process.cwd(), folder);
   logger.log('Loading images...');
   // Read all image files in folder
@@ -163,7 +176,8 @@ const pack = async (config) => {
   // logger.log('blocks: ', blocks);
   // Pack blocks
   logger.log('Packing rectangles...');
-  const bin = binPack(blocks, { padding: spacing });
+  const binPackOptions = { padding: spacing, maxWidth, maxHeight, smart, pot, square };
+  const bin = binPack(blocks, binPackOptions);
   logger.log('Writing results...');
   // Write image and json file
   await Promise.all([
