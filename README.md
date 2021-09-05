@@ -4,6 +4,10 @@
 </p>
 <br>
 
+![version](https://img.shields.io/npm/v/texturepacker)
+![node](https://img.shields.io/node/v/texturepacker)
+![license](https://img.shields.io/apm/l/texturepacker)
+
 ## Usage
 ```
 texturepacker images-folder
