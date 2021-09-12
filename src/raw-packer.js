@@ -1,6 +1,4 @@
 const path = require("path");
-const fs = require("fs");
-const util = require("util");
 const sharp = require("sharp");
 const binPack = require("./bin-pack");
 const { RawPackerOptions, validateOptions } = require("./options");
@@ -151,7 +149,7 @@ const computeAtlasJson = (width, height, blocks, options) => {
 
 const packTextures = async (filePaths, inputOptions) => {
 	const options = validateOptions(inputOptions, RawPackerOptions);
-	const { packOptions, writeFiles, outFolder, fileName, log } = options;
+	const { packOptions, log } = options;
 	const logger = log ? console : { log: () => {} };
 	const blocks = (await Promise.all(filePaths.map(filePathToBlocks))).flat();
 	logger.log("Packing...");

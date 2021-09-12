@@ -4,7 +4,7 @@
 	"description": "Utility for packing a folder of images to an atlas texture",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "echo \"No test specified\" && exit 0"
+		"test": "node ./test/test.js"
 	},
 	"bin": {
 		"texturepack": "cli.js"
@@ -22,6 +22,11 @@
 		"sharp": "^0.29.1",
 		"superstruct": "^0.15.2"
 	},
+	"homepage": "https://github.com/devrandom52/texturepack",
+	"repository": {
+    "type": "git",
+    "url": "git://github.com/devrandom52/texturepack"
+  },
 	"engines": {
 		"node": ">= 8"
 	},
