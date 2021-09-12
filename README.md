@@ -6,6 +6,7 @@
 
 ![version](https://img.shields.io/npm/v/texturepacker)
 ![node](https://img.shields.io/node/v/texturepacker)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ## Setup
 - Install [Node.js](https://nodejs.org/) 
 - Navigate to your project root and run:
