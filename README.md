@@ -52,6 +52,8 @@ texturepacker({
 
 It returns a promise which resolves when packing is completed, or rejects if an error occurred.
 
+When all textures cannot fit in a single image, it will throw an error.
+
 ## Animations
 
 It's also able to create animations from single images. It works using a naming convention: a filename like _explosion-sprite`5x4`.png_ would by cut in `5 columns` and `4 rows` and output an animation of `5x4=20` frames. The frames are placed riw by row in left-to-right order.
