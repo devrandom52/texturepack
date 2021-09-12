@@ -19,7 +19,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"maxrects-packer": "^2.7.2",
-		"sharp": "^0.28.3",
+		"sharp": "^0.29.1",
 		"superstruct": "^0.15.2"
 	},
 	"engines": {
