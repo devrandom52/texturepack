@@ -1,7 +1,7 @@
 const { MaxRectsPacker } = require("maxrects-packer");
 
-const binPack = (input, customOptions) => {
-	const { padding, maxWidth, maxHeight, smart, pot, square } = customOptions;
+const binPack = (input, packOptions) => {
+	const { padding, maxWidth, maxHeight, smart, pot, square } = packOptions;
 	const options = {
 		smart,
 		pot,
@@ -13,8 +13,7 @@ const binPack = (input, customOptions) => {
 	const packer = new MaxRectsPacker(maxWidth, maxHeight, padding, options);
 
 	packer.addArray(input);
-	const bin = packer.bins[0];
-	return bin;
+	return packer.bins;
 };
 
 module.exports = binPack;
