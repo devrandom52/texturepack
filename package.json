@@ -1,6 +1,6 @@
 {
 	"name": "texturepack",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Utility for packing a folder of images to an atlas texture",
 	"main": "src/index.js",
 	"scripts": {
@@ -24,9 +24,9 @@
 	},
 	"homepage": "https://github.com/devrandom52/texturepack",
 	"repository": {
-    "type": "git",
-    "url": "git://github.com/devrandom52/texturepack"
-  },
+		"type": "git",
+		"url": "git://github.com/devrandom52/texturepack"
+	},
 	"engines": {
 		"node": ">= 8"
 	},
