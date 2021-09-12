@@ -1,29 +1,29 @@
-<h1 align="center"> Texturepacker </h1>
+<h1 align="center"> Texturepack </h1>
 <p align="center">
   <b>Utility for packing a folder of images to an atlas texture</b>
 </p>
 <br>
 
-![version](https://img.shields.io/npm/v/texturepacker)
-![node](https://img.shields.io/node/v/texturepacker)
+![version](https://img.shields.io/npm/v/texturepack)
+![node](https://img.shields.io/node/v/texturepack)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ## Setup
 - Install [Node.js](https://nodejs.org/) 
 - Navigate to your project root and run:
 
 ```sh
-$ npm install texturepacker
+$ npm install texturepack
 ```
 - Or install globally from anywhere:
 ```sh
-$ npm install texturepacker -g
+$ npm install texturepack -g
 ```
 This package uses [sharp](https://www.npmjs.com/package/sharp) to manipulate images, which downloads its own binaries on install, so it does not need any external binary like [ImageMagick](https://www.imagemagick.org/).
 
 ## Usage
 
 ```
-texturepacker images-folder
+texturepack images-folder
 ```
 
 Takes all images in specified folder `images-folder` and outputs two files:
@@ -36,9 +36,9 @@ Which is a standard texture atlas format. The specification was tested to work w
 It can also be used programmatically:
 
 ```javascript
-const { texturepacker } = require("./texture-packer");
+const { texturepack } = require("texturepack");
 
-texturepacker({
+texturepack({
 	folder: "images",
 	prettify: true,
 	packOptions: {
@@ -65,7 +65,7 @@ It works on any image file in the target folder which respects this regex `^([^\
 The raw packer that accepts a list of file paths and resolves to an object with the atlas json and the image buffer is also exposed:
 
 ```javascript
-const { rawPacker } = require("./texture-packer");
+const { rawPacker } = require("texturepack");
 
 rawPacker(
 	[

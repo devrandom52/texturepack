@@ -9,7 +9,7 @@ const { PackerOptions, validateOptions } = require("./options");
 
 const IMAGES_REGEX = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
 
-const texturePacker = async (inputOptions) => {
+const texturePack = async (inputOptions) => {
 	const options = validateOptions(inputOptions, PackerOptions);
 	const { folder: imagesFolder, outFolder, ...rawPackerOptions } = options;
 	const { log, fileName } = rawPackerOptions;
@@ -33,4 +33,4 @@ const texturePacker = async (inputOptions) => {
 	logger.log("Packed");
 };
 
-module.exports = texturePacker;
+module.exports = texturePack;

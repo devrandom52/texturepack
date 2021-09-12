@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { texturepacker } = require("./src/index");
+const { texturepack } = require("./src/index");
 const args = process.argv.slice(2);
 
 if (args.length < 1) {
@@ -7,7 +7,7 @@ if (args.length < 1) {
 		return indentedString.replace(/(\s+)?\n(\t+)?/g, " ");
 	};
 	console.error(
-		inline`Usage: texturepacker folder 
+		inline`Usage: texturepack folder 
       [--fileName=fileName] 
       [--outFolder=outFolder]
       [--spacing=spacing]
@@ -27,7 +27,7 @@ const parsedOptions = options
 		return res;
 	}, {});
 
-texturepacker({
+texturepack({
 	...parsedOptions,
 	log: parsedOptions.log === false ? false : true,
 	folder

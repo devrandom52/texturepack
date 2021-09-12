@@ -1,7 +1,7 @@
-const texturepacker = require("./texture-packer");
+const texturepack = require("./texture-pack");
 const rawPacker = require("./raw-packer");
 
 module.exports = {
-	texturepacker,
+	texturepack,
 	rawPacker
 };
