@@ -6,7 +6,6 @@
 
 ![version](https://img.shields.io/npm/v/texturepacker)
 ![node](https://img.shields.io/node/v/texturepacker)
-![license](https://img.shields.io/apm/l/texturepacker)
 ## Setup
 - Install [Node.js](https://nodejs.org/) 
 - Navigate to your project root and run:
@@ -18,6 +17,8 @@ $ npm install texturepacker
 ```sh
 $ npm install texturepacker -g
 ```
+This package uses [sharp](https://www.npmjs.com/package/sharp) to manipulate images, which downloads its own binaries on install, so it does not need any external binary like [ImageMagick](https://www.imagemagick.org/).
+
 ## Usage
 
 ```
